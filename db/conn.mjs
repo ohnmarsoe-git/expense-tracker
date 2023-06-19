@@ -1,5 +1,4 @@
 import { MongoClient } from "mongodb";
-const express = require('express');
 
 const connectionString = process.env.ATLAS_URI || "";
 
