@@ -1,8 +1,14 @@
 # Overview
-Expense Tracker by React, express and MongoDb. 
-In this project used following React Hooks
+Built Expense Tracker by React, express and MongoDb.
+In this project, most used of following React Hooks
 - useContext
 - useState
+
+# How to use
+
+- [x] set income 
+- [x] set Budget Name , `UnCategoried` budget name is default
+- [x] set Expense
 
 
 # Demo Link
