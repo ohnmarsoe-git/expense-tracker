@@ -47,9 +47,9 @@ const BudgetCard = ({heading}) => {
         {card}
         {unCategoriedCard}
       </div>
-      <div className='card'>
+      {/* <div className='card'>
         <div className='title'> <span>Total:  </span> <span> {state.totalExpense} MMK</span></div>
-      </div>
+  </div> */}
       
     </>
   )

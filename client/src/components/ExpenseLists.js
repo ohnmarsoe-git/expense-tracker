@@ -36,7 +36,6 @@ const ExpenseLists = () => {
   return (
     <div className='main'>
       <h2>Filter Expenses Transactions</h2>
-      <div>Choose Date</div>
       <div className="date-box">
         <div className='calendar'>
           <span>Start:</span>
@@ -63,14 +62,13 @@ const ExpenseLists = () => {
               />
           </div>
         </div>
-        <div className='btn-box' onClick={handleFilter}><button>search</button></div>
+        <div className='btn-box' onClick={handleFilter}><button>Search</button></div>
       </div>
 
 
       {expenses?.length > 0 ?
         <>
           <div className='transaction-list'>
-            <h2> Transactions list </h2>
             <ul className="expense-list expense-list-detail">
               <li key="date" className='heading'>Date</li>
               <li key="category" className='heading'>Category</li>
@@ -80,7 +78,7 @@ const ExpenseLists = () => {
               {expenses.map( (exp, index) => (
               <>
                 <li key={'date' + index}  className='date'>{ exp.createdAt ? format(new Date(exp.createdAt), 'MM/dd/yyyy' ) : ''}</li>
-                <li key={'budget' + index}>{exp.budget}</li>
+                <li key={'budget' + index}><span>{exp.budget}</span></li>
                 <li key={'name' + index}>{exp.name}</li>
                 <li key={'price' + index} className='expense-list-row'><span>{exp.amount}</span> </li>
                 <li key={'actions' +index}><button onClick={() => deleteExpenseView(exp)}>x</button></li>
@@ -88,11 +86,11 @@ const ExpenseLists = () => {
               )
             )}
             
-            <li key="null1"></li>
-            <li key="null2"></li>
-            <li key="null3">TOTAL</li>
-            <li key="null4">{totalExpense()}</li> 
-            <li key="null5"></li>
+            <li key={'null1'}></li>
+            <li key={'null2'}></li>
+            <li key={'null3'}>TOTAL</li>
+            <li key={'null4'}>{totalExpense()}</li> 
+            <li key={'null5'}></li>
 
             </ul>
           </div>

@@ -39,12 +39,13 @@ const ExpenseTracker = () => {
         return <IncomeForm />
 
       case 'expense':
+      case 'expense-lists':
         return <ExpenseForm />
 
       case 'viewall':
         return <Transactions />
 
-      case 'expense-lists':
+      case 'filter':
         return <ExpenseLists />
 
       case 'chart':
@@ -110,7 +111,7 @@ const ExpenseTracker = () => {
       <div className='footer'>
         <ul>
           <li><Link onClick={handleModal} id="chart" alt="chart"><span><AiFillPieChart size={40}/></span></Link></li>
-          <li><Link onClick={handleModal} id="budget" alt="budget"><span><img src={homeIcon} width={40} height={40} alt="budget"/></span></Link></li>
+          <li><Link onClick={handleModal} id="filter" alt="filter"><span><img src={homeIcon} width={40} height={40} alt="filter"/></span></Link></li>
         </ul>
       </div>
       </div>
