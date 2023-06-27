@@ -3,7 +3,7 @@ import ExpenseContext from '../context/ExpenseContext';
 import {useForm} from 'react-hook-form';
 import ModalContext from '../context/ModalContext';
 
-const IncomeForm = ({}) => {
+const IncomeForm = () => {
 
   const {setOpenModal} = useContext(ModalContext)
 

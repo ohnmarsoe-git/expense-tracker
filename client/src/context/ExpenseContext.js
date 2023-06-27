@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer} from 'react'
+import React, {useReducer} from 'react'
 import BASEAPI from '../API/config.js'
 
 const ExpenseContext = React.createContext();
@@ -66,10 +66,13 @@ export const ExpenseContextProvider = ({children}) => {
         }
 
       case "GET_EXPENSES_DATE_FILTER":
-        return {
-          ...state,
-          expense: action.payload,
-          totalExpense: action.payload.reduce( (total, expense) => total + parseInt(expense.amount), 0 )
+        if(action.payload.length > 0 ) {
+          return {
+            ...state,
+            expense: action.payload,
+          }
+        } else {
+          return state;
         }
 
       case "GET_EXPENSES_CATEGORY":
@@ -80,7 +83,6 @@ export const ExpenseContextProvider = ({children}) => {
         }
        
       case "DELETE_EXPENSE":
-        console.log(state.expense.filter( (ex) => ex._id !== action.payload._id && ex.budget === action.payload.budget))
         return {
           ...state,
           expense: state.expense.filter( (ex) => ex._id !== action.payload._id && ex.budget === action.payload.budget),
@@ -164,20 +166,6 @@ export const ExpenseContextProvider = ({children}) => {
     }
   }
 
-  const getExpensesByCategory = async (expense) => {
-    try {
-      await BASEAPI.get(`/expensesbycategory`, {
-        params: {
-          category: expense.budget
-        }
-      }).then(response => {
-        dispatch({type: 'GET_EXPENSES_CATEGORY', payload: response.data})
-      }).catch(error => {console.log(error)})
-    }catch(e) {
-      console.log(e);
-    }
-  }
-
   const deleteExpense = async (expense) => {
     try {
       await BASEAPI.delete(`/expense`, {
@@ -190,19 +178,16 @@ export const ExpenseContextProvider = ({children}) => {
     }catch(e) {
       console.log(e);
     }
-
-    // dispatch({type: "DELETE_EXPENSE", payload: expense})
   }
 
   const getExpensesFilterByDate = async (startDate, endDate) => {
-
     try {
       await BASEAPI.get(`/expensesfilter`, {
         params: {
           startDate: startDate,
           endDate: endDate
         }
-      }).then(response => {
+      }).then(response => { 
           dispatch({type: 'GET_EXPENSES_DATE_FILTER', payload: response.data})
       }).catch(error => {console.log(error)})
     }catch(e) {

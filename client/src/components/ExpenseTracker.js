@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import ExpenseContext from '../context/ExpenseContext';
 import Modal from './Modal';
@@ -34,31 +34,24 @@ const ExpenseTracker = () => {
     switch(name) {
       case 'budget':
         return <BudgetFrom budgets={state.budgets} />
-      break;
 
       case 'income':
         return <IncomeForm />
-      break;
 
       case 'expense':
         return <ExpenseForm />
-      break;
 
       case 'viewall':
         return <Transactions />
-      break;
 
       case 'expense-lists':
         return <ExpenseLists />
-      break;
 
       case 'chart':
         return <Chart />
-      break;
 
       default:
         return setModalName('');
-      break;
     }
   }
 
@@ -66,6 +59,8 @@ const ExpenseTracker = () => {
     getIncome()
     getBudget()
     getExpenses();
+
+    // eslint-disable-next-line
   }, [])
 
   const totalExpense = (income) => {

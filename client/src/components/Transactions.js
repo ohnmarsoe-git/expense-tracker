@@ -8,7 +8,7 @@ const Transactions = () => {
   
   const {category} = useContext(ModalContext);
 
-  const {state, deleteExpense, getExpenseId} = useContext(ExpenseContext)
+  const { deleteExpense, getExpenseId } = useContext(ExpenseContext)
 
   const [expenses, setExpenses] = useState([]);
 
@@ -28,8 +28,6 @@ const Transactions = () => {
     const getRecords = getExpenseId(category)
     setExpenses(getRecords)
   }
-
-  console.log(expenses);
 
   return (
     <>

@@ -17,6 +17,7 @@ const Chart = () => {
       const total =  getExpenseId(budget.name).reduce(
         (total, ex) => total + parseInt(ex.amount), 0 )
       budgetTotalAmount.push(total);
+      return {budgetName, budgetTotalAmount}
     });
     return { budgetName, budgetTotalAmount };
   }

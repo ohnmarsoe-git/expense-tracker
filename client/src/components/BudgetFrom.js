@@ -1,4 +1,4 @@
-import React, {useContext, useEffect } from 'react'
+import React, {useContext} from 'react'
 import ExpenseContext from '../context/ExpenseContext';
 import {useForm} from 'react-hook-form';
 import ModalContext from '../context/ModalContext';
@@ -6,7 +6,7 @@ import ModalContext from '../context/ModalContext';
 const BudgetFrom = ({visible, budgets}) => {
   const {setOpenModal} = useContext(ModalContext)
   const { addBudget } = useContext(ExpenseContext);
-  const {register, handleSubmit, setError, clearErrors, reset, formState} = useForm();
+  const {register, handleSubmit, reset, formState} = useForm();
   const {errors} = formState
   
   const onHandleSubmit = (data) => {

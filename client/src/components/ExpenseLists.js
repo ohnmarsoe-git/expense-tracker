@@ -1,9 +1,8 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext, useState} from 'react'
 import ExpenseContext from '../context/ExpenseContext';
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import calendarIcon from '../assets/img/calendar.svg'
-import BudgetCard from './BudgetCard';
 const {format} = require('date-fns');
 
 const ExpenseLists = () => {
@@ -11,26 +10,28 @@ const ExpenseLists = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
-  const {state, deleteExpense, getExpensesFilterByDate} = useContext(ExpenseContext);
+  const { state, deleteExpense} = useContext(ExpenseContext);
+  const [expenses, setExpenses] = useState();
 
   const handleFilter = () => {
-    let sdate = startDate ? startDate.toISOString() : ''
-    let edate = endDate ? endDate.toISOString() : ''
-    // return state.expense.filter(expense => expense.createdAt >= sdate && expense.createdAt <= edate);
-    getExpensesFilterByDate(sdate, edate);
+   
+    let sdate = startDate ? format(new Date(startDate), 'MM/dd/yyyy' ) : ''
+    let edate = endDate ? format(new Date(endDate), 'MM/dd/yyyy' ) : ''
+
+    const records = state.expense.filter( expense => format(new Date(expense.createdAt), 'MM/dd/yyyy' )  >= sdate && format(new Date(expense.createdAt), 'MM/dd/yyyy' ) <= edate );
+
+    setExpenses(records);
   }
 
   const totalExpense = () => {
-    return state.expense.reduce((total, ex) => total + parseInt(ex.amount), 0);
+    return expenses.reduce((total, ex) => total + parseInt(ex.amount), 0);
   }
 
-  useEffect(() => {
-    let sdate = startDate ? startDate.toISOString() : ''
-    let edate = endDate ? endDate.toISOString() : ''
-    getExpensesFilterByDate(sdate, edate);
-  }, [])
+  const deleteExpenseView = (expense) => {
+    deleteExpense(expense);
+    return setExpenses( expenses?.filter( (ex) => ex._id !== expense._id));
+  }
 
-  console.log(state);
 
   return (
     <div className='main'>
@@ -66,34 +67,32 @@ const ExpenseLists = () => {
       </div>
 
 
-      {state.expense.length > 0 ?
+      {expenses?.length > 0 ?
         <>
           <div className='transaction-list'>
             <h2> Transactions list </h2>
             <ul className="expense-list expense-list-detail">
-              <li className='heading'>Date</li>
-              <li className='heading'>Category</li>
-              <li className='heading'>Name</li>
-              <li className='heading'>Price</li>
-              <li className='heading'>Actions</li>
-              {state.expense.map( (exp, index) => (
+              <li key="date" className='heading'>Date</li>
+              <li key="category" className='heading'>Category</li>
+              <li key="name" className='heading'>Name</li>
+              <li key="price" className='heading'>Price</li>
+              <li key="actions" className='heading'>Actions</li>
+              {expenses.map( (exp, index) => (
               <>
-                <li className='date' key={exp.createdAt + index}>{ exp.createdAt ? format(new Date(exp.createdAt), 'MM/dd/yyyy' ) : ''}</li>
-                <li key={exp.budget + index}>{exp.budget}</li>
-                <li key={exp.name + index}>{exp.name}</li>
-                <li key={index} className='expense-list-row'>
-                  <span>{exp.amount}</span> 
-                </li>
-                <li><button onClick={() => deleteExpense(exp)}>x</button></li>
+                <li key={'date' + index}  className='date'>{ exp.createdAt ? format(new Date(exp.createdAt), 'MM/dd/yyyy' ) : ''}</li>
+                <li key={'budget' + index}>{exp.budget}</li>
+                <li key={'name' + index}>{exp.name}</li>
+                <li key={'price' + index} className='expense-list-row'><span>{exp.amount}</span> </li>
+                <li key={'actions' +index}><button onClick={() => deleteExpenseView(exp)}>x</button></li>
               </>
               )
             )}
             
-            <li></li>
-            <li></li>
-            <li>TOTAL</li>
-            <li>{totalExpense()}</li> 
-            <li></li>
+            <li key="null1"></li>
+            <li key="null2"></li>
+            <li key="null3">TOTAL</li>
+            <li key="null4">{totalExpense()}</li> 
+            <li key="null5"></li>
 
             </ul>
           </div>

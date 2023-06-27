@@ -24,7 +24,8 @@ const BudgetCard = ({heading}) => {
       )
     })
 
-  const unCategoriedTotal = getExpenseId( state.expense , 'Uncategoried').reduce(
+
+  const unCategoriedTotal = getExpenseId('Uncategoried').reduce(
     (total, ex) => total + parseInt(ex.amount), 0 )
 
   const unCategoriedCard = <div className='card'>

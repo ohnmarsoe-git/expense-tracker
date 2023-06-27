@@ -51,7 +51,6 @@ router.get('/expensesfilter', async(req, res) => {
       $lt: endDate
     }
   }).toArray();
-
   res.send(results).status(200);
 })
 
