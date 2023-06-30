@@ -2,6 +2,7 @@
 Built Expense Tracker by React, express and MongoDb.
 In this project, most used of following React Hooks
 - useContext
+- useReducer
 - useState
 
 # How to use
